@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../webapp/static/css/style.css" type="text/css" media="all" th:href="@{/static/css/style.css}"/>
+    <script type="text/javascript" src="../../webapp/static/js/thymeleaf.js" th:src="@{/static/js/thymeleaf.js}"></script>
+    <script>
+        //testFunction();
+    </script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="showing">
+    <p th:text="'欢迎'+${thymeleaf}">哈哈哈</p>
+
+    <p th:text="|欢迎您 ${thymeleaf}|">hahha</p>
+
+    测试转义 和非转义
+    <p th:text="${html}"></p>
+    <p th:utext="${html}"></p>
+
+    获取对象 属性的方法
+    <p th:text="${product.name}"></p>
+    <p th:text="${product.getName()}"></p>
+
+    显示当前对象的属性
+    <p th:text="*{product}"></p>
+
+    计算
+    <p th:text="${product.price +1000}">价格</p>
+</div>
+
+<div th:replace="include::footer1"></div>
+<div th:replace="include::footer2(2001,2020)"></div>
+
+thymeleaf d的判断的用法
+<p th:if="${flag}">flag如果是true,就显示这句话，如果是false,这句话就不会显示出来的！</p>
+<p th:if="${flagFalse}">flagFalse 如果是true,就显示这句话，如果是false,这句话就不会显示出来的！</p>
+
+<p th:if="${not flagFalse}">取反值  flagFalse 如果是true,就显示这句话，如果是false,这句话就不会显示出来的！</p>
+th:unless="${flagFalse}" 和 th:if="${not flagFalse}" 是一个意思
+<p th:unless="${flagFalse}">th:unless  取反值  flagFalse 如果是true,就显示这句话，如果是false,这句话就不会显示出来的！</p>
+
+三元运算符的使用
+<p th:text="${flagFalse}?'当时true 的时候就显示这句话':'当时false的时候就显示这句话，使用三元运算符写的'"></p>
+
+
+<p style="color:red;">遍历的使用</p>
+第一种： 普通遍历
+<div class="showing">
+    <h2>遍历</h2>
+
+    <table border="1" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>产品名称</th>
+            <th>价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p: ${productList}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+第2种：带状态的遍历
+
+
+
+<div class="showing">
+    <h2>遍历</h2>
+
+    <table border="1" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>产品名称</th>
+            <th>价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:class="${status.even}?'even':'odd'" th:each="p,status: ${productList}">
+            <td  th:text="${status.index}"></td>
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+遍历下拉框
+<div class="showing">
+    <h2>遍历 select 下拉框</h2>
+
+    <select size="3" style="width: 100px">
+        <!--th:selected 表示被选中的项。-->
+        <option th:each="p:${productList}" th:value="${p.id}" th:selected="${p.id == product.id}" th:text="${p.name}">
+
+        </option>
+    </select>
+</div>
+
+遍历单选框
+<div class="showing">
+    <h2>遍历 radio单选框</h2>
+
+   <input name="product" type="radio" th:each="p:${productList}" th:value="${p.id}"
+          th:checked="${p.id==product.id}" th:text="${p.name}"/>
+
+</div>
+
+</body>
+</html>

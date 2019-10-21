@@ -1,0 +1,11 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="footer1">
+   <p>All Rights Reversed</p>
+</footer>
+
+<footer th:fragment="footer2(start,now)">
+    <p th:text="|${start} - ${now} All Rights Reversed|"></p>
+    <p th:text="|${start} - ${now} All Rights Reserved|"></p>
+</footer>
+</html>
